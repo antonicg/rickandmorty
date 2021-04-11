@@ -1,0 +1,77 @@
+import com.antonicastejon.rickandmorty.Libs
+
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlinx-serialization'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
+
+android {
+    compileSdk 30
+    buildToolsVersion "30.0.3"
+
+    defaultConfig {
+        applicationId "com.antonicastejon.rickandmorty"
+        minSdk 24
+        targetSdk 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildFeatures {
+        compose true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion '1.0.0-beta01'
+    }
+
+    buildTypes {
+       release {
+           minifyEnabled false
+           proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+       }
+    }
+}
+
+dependencies {
+    implementation Libs.AndroidX.appcompat
+
+    implementation Libs.AndroidX.ComposeDependencies.ui
+    implementation Libs.AndroidX.ComposeDependencies.tooling
+    implementation Libs.AndroidX.ComposeDependencies.foundation
+    implementation Libs.AndroidX.ComposeDependencies.material
+    implementation Libs.AndroidX.ComposeDependencies.runtime
+    implementation Libs.AndroidX.ComposeDependencies.runtimeLivedata
+    implementation Libs.AndroidX.ComposeDependencies.Integrations.activityCompose
+
+    implementation Libs.Kotlin.Coroutines.android
+    implementation Libs.Kotlin.Coroutines.core
+
+    implementation Libs.Kotlin.serializationJson
+    implementation Libs.Network.retrofitKotlinSerializationConverter
+
+    implementation Libs.Network.retrofit
+    implementation Libs.Network.okHttpLogging
+
+    implementation Libs.Google.Di.hilt
+    kapt Libs.Google.Di.hiltKapt
+
+    testImplementation Libs.Test.JUnit.junit
+    testImplementation Libs.Kotlin.Coroutines.test
+}
+
+repositories {
+    mavenCentral()
+}
